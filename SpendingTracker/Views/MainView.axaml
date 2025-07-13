@@ -1,0 +1,103 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:views="using:SpendingTracker.Views"
+             mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="650"
+             x:Class="SpendingTracker.Views.MainView"
+             x:DataType="views:MainView">
+
+    <Grid ColumnDefinitions="400,*" RowDefinitions="Auto,*" Margin="20">
+        <!-- LEFT PANEL: INPUT FORM -->
+        <StackPanel Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Margin="0,0,20,0">
+            <TextBlock Text="Add New Receipt" Classes="h1"/>
+
+            <!-- Receipt Name -->
+            <TextBlock Text="RECEIPT NAME / STORE" Classes="label"/>
+            <TextBox Name="NewReceiptNameTextBox" Text="{Binding NewReceiptName, Mode=TwoWay}" Watermark="e.g., Grocery Store"/>
+
+            <!-- Item Form -->
+            <TextBlock Text="ITEMS" Classes="label"/>
+            <Border Classes="card">
+                <StackPanel>
+                    <Grid ColumnDefinitions="*,Auto">
+                        <StackPanel Grid.Column="0" Margin="0,0,10,0">
+                            <TextBlock Text="Item Name" Classes="label"/>
+                            <TextBox Name="NewItemNameTextBox" Text="{Binding NewItemName, Mode=TwoWay}" Watermark="e.g., Milk"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1">
+                            <TextBlock Text="Cost ($)" Classes="label"/>
+                            <TextBox Name="NewItemCostTextBox" Text="{Binding NewItemCost, Mode=TwoWay}" Watermark="e.g., 3.50" Width="100"/>
+                        </StackPanel>
+                    </Grid>
+                    <Button Content="Add Item" Click="AddItemButton_Click" HorizontalAlignment="Stretch"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Current Items List -->
+            <ItemsControl ItemsSource="{Binding CurrentItems}" Margin="0,10,0,0">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Classes="card">
+                            <Grid ColumnDefinitions="*,Auto">
+                                <TextBlock Text="{Binding Name}" VerticalAlignment="Center"/>
+                                <TextBlock Text="{Binding Cost, StringFormat={}{0:C}}" FontWeight="Bold" Grid.Column="1"/>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            
+            <!-- Add Receipt Button -->
+            <Button Content="Save Receipt" Click="AddReceiptButton_Click" HorizontalAlignment="Stretch" Margin="0,20,0,0"/>
+
+        </StackPanel>
+
+        <!-- RIGHT PANEL: SUMMARY -->
+        <StackPanel Grid.Row="0" Grid.Column="1">
+             <TextBlock Text="Monthly Summary" Classes="h1"/>
+             <TextBlock Text="{Binding MonthlyTotal, StringFormat='Total This Month: {0:C}'}" Classes="h2" Foreground="#98c379"/>
+        </StackPanel>
+
+        <ScrollViewer Grid.Row="1" Grid.Column="1">
+            <StackPanel>
+                <TextBlock Text="All Submitted Receipts" Classes="h2"/>
+                <ItemsControl ItemsSource="{Binding Receipts}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Classes="card">
+                                <StackPanel>
+                                    <Grid ColumnDefinitions="*,Auto">
+                                        <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="16"/>
+                                        <TextBlock Text="{Binding TotalCost, StringFormat={}{0:C}}" Grid.Column="1" FontWeight="Bold" FontSize="16" Foreground="#61afef"/>
+                                    </Grid>
+                                    <TextBlock Text="{Binding DateAdded, StringFormat='dd MMM yyyy'}" FontSize="12" Foreground="#9da5b3" Margin="0,5,0,10"/>
+                                    
+                                    <ItemsControl ItemsSource="{Binding Items}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid ColumnDefinitions="*,Auto" Margin="10,2">
+                                                    <TextBlock Text="{Binding Name}"/>
+                                                    <TextBlock Text="{Binding Cost, StringFormat={}{0:C}}" Grid.Column="1"/>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+
+                                    <!-- EDIT/DELETE BUTTONS -->
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0" Spacing="10">
+                                        <Button Content="Edit" Click="EditReceiptButton_Click" CommandParameter="{Binding}" Padding="10,5" FontSize="12"/>
+                                        <Button Content="Delete" Click="DeleteReceiptButton_Click" CommandParameter="{Binding}" Classes="danger" Padding="10,5" FontSize="12"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <!-- Sanitization Button -->
+                <Button Content="Clear All Data" Click="ClearAllDataButton_Click" Classes="danger" HorizontalAlignment="Stretch" Margin="0,20,0,0"/>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

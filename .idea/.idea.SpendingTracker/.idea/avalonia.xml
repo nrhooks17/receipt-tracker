@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AvaloniaProject">
+    <option name="projectPerEditor">
+      <map>
+        <entry key="SpendingTracker/App.axaml" value="SpendingTracker/SpendingTracker.csproj" />
+        <entry key="SpendingTracker/MainWindow.axaml" value="SpendingTracker/SpendingTracker.csproj" />
+        <entry key="SpendingTracker/Views/MainView.axaml" value="SpendingTracker/SpendingTracker.csproj" />
+      </map>
+    </option>
+  </component>
+</project>
