@@ -8,6 +8,7 @@ SpendingTracker/[Rr]elease/
 SpendingTracker/[Bb]in/
 SpendingTracker/[Oo]bj/
 SpendingTracker/obj
+SpendingTracker/bin
 
 ## NuGet packages
 # This is often not needed for modern .NET with PackageReference, but good practice
