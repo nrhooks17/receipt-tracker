@@ -1,0 +1,23 @@
+# Rider-specific files
+.idea/
+
+# Standard C# ignores
+## Build results
+SpendingTracker/[Dd]ebug/
+SpendingTracker/[Rr]elease/
+SpendingTracker/[Bb]in/
+SpendingTracker/[Oo]bj/
+SpendingTracker/obj
+
+## NuGet packages
+# This is often not needed for modern .NET with PackageReference, but good practice
+*.nupkg
+*.snupkg
+/packages/
+
+# Avalonia-specific ignores
+## Avalonia cache files
+.avalonia/
+
+## Publish folder for applications
+/publish/
